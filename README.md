@@ -1,31 +1,53 @@
-# Detecting Depressive Tendencies in Reddit Users using Stacked Ensemble Learning
+# Reddit Depression Detection via Multi-Stage Stacked Ensemble Learning
 
 ## Project Overview
-This research-oriented project focuses on detecting signs of depression in social media discourse. By leveraging Natural Language Processing (NLP) and Ensemble Learning, the model identifies patterns associated with mental health distress in Reddit posts.
+This research-oriented project focuses on detecting signs of depression in social media discourse. By leveraging **Natural Language Processing (NLP)** and **Stacked Generalization (Stacking)**, the model identifies patterns associated with mental health distress in Reddit posts.
 
-## Methodology
-The current implementation uses a **Stacked Generalization (Stacking)** framework to improve classification performance:
-- **Data Source:** Reddit (Mental Health related subreddits).
-- **Base Learners:** A combination of high-performing ML algorithms (e.g.Logistic Regression, Naive Bayes, Random Forest, XGBoost, Gradient-Boosting).
-- **Meta-Model:** Optimized classifier that aggregates base-model predictions for the final output.
-- **Features:** TF-IDF Vectorization for textual analysis.
+## Methodology & Experiments
+The implementation uses a multi-level stacking framework to improve classification performance. Two major experiments were conducted:
 
-## Repository Contents
-- `stacked_model.pkl`: The saved best-performing stacked model (Ready for inference).
-- `DataSet35530.csv`: The training data (approx. 32MB) containing Reddit posts and labels.
+### Experiment 1: Traditional ML Stacking (Top Performer)
+* **Base Learners:** Logistic Regression (LR), Naive Bayes (NB), K-Nearest Neighbors (KNN), Support Vector Machine (SVM), and Random Forest (RF).
+* **Meta-Model:** Optimized classifier aggregating the top 3 base models.
+* **Result:** Achieved a peak **Accuracy of 96%**.
+* **Model File:** `stacked_model.pkl`
 
-## Future Roadmap
-- [ ] **LLM Integration:** Moving towards Transformer-based architectures (BERT, RoBERTa, or Llama fine-tuning).
-- [ ] **Real-time API:** Creating a Streamlit or Flask interface for live text prediction.
-- [ ] **Data Expansion:** Incorporating multi-modal data (metadata like post timing and frequency).
+### Experiment 2: Boosting/Tree-Based Stacking
+* **Base Learners:** XGBoost, AdaBoost, and Gradient Boosting.
+* **Result:** While robust, this configuration yielded slightly lower accuracy compared to the Traditional ML Stack.
 
-## 📖 Usage
-To load the model in your local environment:
-```python
-import joblib
+## Streamlit Dashboard (`d2.py`)
+To make the research accessible, I developed an interactive web application featuring:
+* **Live Text Inference:** Predicts mental health status from real-time user input.
+* **Confidence Scoring:** Displays the probability percentage of the detection.
 
-# Load the stacked model
-model = joblib.load('stacked_model.pkl')
+## 📂 Repository Contents
+* `stacked_model.pkl`: The saved best-performing stacked model (96% Accuracy).
+* `DataSet35530.csv`: Training data (approx. 32MB) containing Reddit posts and labels.
+* `d2.py`: Streamlit-based web interface script.
+* `requirements.txt`: List of necessary Python libraries.
 
-# Example Prediction
-# result = model.predict([processed_text])
+---
+
+## 🚀 Installation & Setup Guide
+Follow these steps to run the project locally:
+
+### 1. Clone the Repository
+```bash
+git clone [https://github.com/still-shrey/reddit-depression-detection.git](https://github.com/still-shrey/reddit-depression-detection.git)
+cd reddit-depression-detection
+```
+
+### 2. Install Dependencies
+Ensure you have Python installed, then run:
+```bash
+pip install -r requirements.txt
+```
+### 3. Run the Application
+Launch the interactive dashboard by running:
+```bash
+streamlit run d2.py
+```
+
+
+
